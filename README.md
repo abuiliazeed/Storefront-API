@@ -3,17 +3,12 @@
 ## Getting Started
 
 ### Setting up the database
-to setup and connect to the database run this docker image to start the postgresql server
-First you have to pull the docker image i created which contain the postgresql server by runnin the following command
-```
-docker pull abuiliazeed/storefrontdb:1
-```
-after that you have to run the following command to start the postgresql server
-```
-docker run -d -p 5432:5432 --name storefrontdb abuiliazeed/storefrontdb:1
-```
+to setup and connect to the database run the docker compose file to start the postgresql server
 
-### Setting up the server
+```
+docker-compose up -d
+```
+### Setting up the API Express server
 Clone this repo by running the following command
 ```
 git clone https://github.com/abuiliazeed/Storefront-API.git
@@ -28,8 +23,8 @@ npm start
 ```
 Now you can navigate to the localhost:3000 to see the server running and expreminting the API
 
-## Required Technologies
-Your application must make use of the following libraries:
+## Technologies used
+- Docker
 - Postgres for the database
 - Node/Express for the application logic
 - dotenv from npm for managing environment variables
