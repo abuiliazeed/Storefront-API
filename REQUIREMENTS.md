@@ -5,20 +5,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index >> GET /products
+- Show >> GET /products/:id
+- Create [token required] >> POST /products
+- [OPTIONAL] Top 5 most popular products >> GET /products/popular
+- [OPTIONAL] Products by category (args: product category) >> GET /products/category/:category
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] >> GET /users
+- Show [token required] >> GET /users/:id
+- Create N[token required]  >> POST /users
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required] >> GET /orders/current
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] >> GET /orders/completed
 
 ## Data Shapes
 #### Product
