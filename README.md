@@ -2,7 +2,31 @@
 
 ## Getting Started
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+### Setting up the database
+to setup and connect to the database run this docker image to start the postgresql server
+First you have to pull the docker image i created which contain the postgresql server by runnin the following command
+```
+docker pull abuiliazeed/storefrontdb:1
+```
+after that you have to run the following command to start the postgresql server
+```
+docker run -d -p 5432:5432 --name storefrontdb abuiliazeed/storefrontdb:1
+```
+
+### Setting up the server
+Clone this repo by running the following command
+```
+git clone https://github.com/abuiliazeed/Storefront-API.git
+```
+run the following command to install all the dependencies
+```
+npm install
+```
+run the following command to start the server
+```
+npm start
+```
+Now you can navigate to the localhost:3000 to see the server running and expreminting the API
 
 ## Required Technologies
 Your application must make use of the following libraries:
