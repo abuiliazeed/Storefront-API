@@ -57,6 +57,21 @@ const updateUser = async (req:Request, res:Response, next : NextFunction) => {
     }
 }
 
+//delete a user
+const deleteUser = async (req:Request, res:Response, next : NextFunction) => {
+    try {
+        const user =await userModel.deleteUser(Number(req.params.id))
+        res.json({
+            status:"success",
+            data:{...user},
+            message:"user deleted successfully",
+        })
+    }catch (err) {
+        next(err)
+    }
+}
 
 
-export  {createUser,getAllUsers,getUserById,updateUser}
+
+
+export  {createUser,getAllUsers,getUserById,updateUser,deleteUser}

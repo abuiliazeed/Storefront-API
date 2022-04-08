@@ -68,9 +68,26 @@ class UserModel {
             throw err;
         }
     }
-    
+
 
     // delete a user
+    async deleteUser(id: number): Promise<User> {
+        try {
+            //open connection with database
+            const connection = await dbclient.connect();
+            //run query to delete user
+            const deleteUserQuery = `DELETE FROM users WHERE id = $1 RETURNING id,firstname,lastname,email,password`;
+            const result = await connection.query(deleteUserQuery, [id]);
+            //close connection
+            connection.release();
+            //return user
+            return result.rows[0];
+        } catch (err) {
+            throw err;
+        }
+    }
+
+
 
     // authenticate a user
 
