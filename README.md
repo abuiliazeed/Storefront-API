@@ -2,6 +2,20 @@
 
 ## Getting Started
 
+### Setting up the .env file
+Create .env file that contain all your environment variables
+```
+PORT=3000
+
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=storefrontdb
+POSTGRES_TEST_DB=storefrontdbtest
+POSTGRES_PORT=5432
+ENV=dev
+```
+
 ### Setting up the database
 you need to create two databases the first one for development storefrontdb 
 ```
