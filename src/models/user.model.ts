@@ -36,6 +36,23 @@ class UserModel {
         }}
 
     // get a user by id
+    async getUserById(id: number): Promise<User> {
+        try {
+            //open connection with database
+            const connection = await dbclient.connect();
+            //run query to get user by id
+            const getUserByIdQuery = `SELECT * FROM users WHERE id = $1`;
+            const result = await connection.query(getUserByIdQuery, [id]);
+            //close connection
+            connection.release();
+            //return user
+            return result.rows[0];
+        } catch (err) {
+            throw err;
+        }
+    }
+
+
 
     // update a user
 

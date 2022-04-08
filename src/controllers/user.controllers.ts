@@ -3,7 +3,7 @@ import UserModel from '../models/user.model'
 
 const userModel = new UserModel()
 
-
+// create user function
 const createUser = async (req:Request, res:Response, next : NextFunction) => {
     try {
         const user =await userModel.createUser(req.body)
@@ -16,7 +16,7 @@ const createUser = async (req:Request, res:Response, next : NextFunction) => {
         next(err)
         }
     } 
-
+// get all users function
 const getAllUsers = async (req:Request, res:Response, next : NextFunction) => {
     try {
         const users =await userModel.getAllUsers()
@@ -29,7 +29,20 @@ const getAllUsers = async (req:Request, res:Response, next : NextFunction) => {
         next(err)
         }
     }
+// get user by id function
+const getUserById = async (req:Request, res:Response, next : NextFunction) => {
+    try {
+        const user =await userModel.getUserById(Number(req.params.id))
+        res.json({
+            status:"success",
+            data:{...user},
+            message:"user retrieved successfully",
+        })
+    }catch (err) {
+        next(err)
+    }
+
+}
 
 
-
-export  {createUser,getAllUsers}
+export  {createUser,getAllUsers,getUserById}
