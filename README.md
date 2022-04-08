@@ -3,10 +3,13 @@
 ## Getting Started
 
 ### Setting up the database
-to setup and connect to the database run the docker compose file to start the postgresql server
-
+you need to create two databases the first one for development storefrontdb 
 ```
-docker-compose up -d
+CREATE DATABASE storefrontdb
+```
+and create another one for testing
+```
+CREATE DATABASE storefrontdbtest
 ```
 ### Setting up the API Express server
 Clone this repo by running the following command
