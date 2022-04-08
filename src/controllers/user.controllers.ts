@@ -43,6 +43,20 @@ const getUserById = async (req:Request, res:Response, next : NextFunction) => {
     }
 
 }
+    // update a user
+const updateUser = async (req:Request, res:Response, next : NextFunction) => {
+    try {
+        const user =await userModel.updateUser(Number(req.params.id),req.body)
+        res.json({
+            status:"success",
+            data:{...user},
+            message:"user updated successfully",
+        })
+    }catch (err) {
+        next(err)
+    }
+}
 
 
-export  {createUser,getAllUsers,getUserById}
+
+export  {createUser,getAllUsers,getUserById,updateUser}
