@@ -14,7 +14,7 @@ app.use(morgan('short'))
 
 dbclient.connect().then((client) =>{
   client.query('SELECT NOW()',(err,res)=>{
-    console.log(`Environment: ${process.env.ENV}`)
+    console.log(`Environment: ${process.env.ENV} Database connected at:`)
     console.log(res.rows)
     client.release() 
   })

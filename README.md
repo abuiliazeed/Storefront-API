@@ -15,7 +15,6 @@ POSTGRES_TEST_DB=storefrontdbtest
 POSTGRES_PORT=5432
 ENV=dev
 ```
-
 ### Setting up the database
 you need to create two databases the first one for development storefrontdb 
 ```
