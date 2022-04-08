@@ -1,7 +1,8 @@
-import express, { Application, Request, Response } from 'express'
+import express, { Application, Request, Response, json } from 'express'
 import morgan from 'morgan'
 import * as dotenv from 'dotenv'
 import dbclient from './db/db'
+import routes from './routes/index'
 
 
 dotenv.config()
@@ -20,12 +21,16 @@ dbclient.connect().then((client) =>{
   })
 })
 
+app.use(express.json())
+app.use('/api', routes)
+
 // add routing for / path
 app.get('/', (req: Request, res: Response) => {
   res.json({
     message: 'server is running'
   })
 })
+
 
 // start express server
 app.listen(PORT, () => {
