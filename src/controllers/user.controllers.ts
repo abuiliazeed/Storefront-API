@@ -1,6 +1,9 @@
 import {NextFunction, Request,Response} from 'express'
 import UserModel from '../models/user.model'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const userModel = new UserModel()
 
 // create user function
@@ -71,7 +74,28 @@ const deleteUser = async (req:Request, res:Response, next : NextFunction) => {
     }
 }
 
+// authenticate user
+const authenticateUser = async (req:Request, res:Response, next : NextFunction) => {
+    try {
+        const user =await userModel.authenticateUser(req.body.email,req.body.password)
+        const token = jwt.sign({user},process.env.TOKEN_SECRET as string)
+        if(!user){
+            res.status(401).json({
+                status:"error",
+                message:"invalid credentials",
+            })
+        }else{
+        res.json({
+            status:"success",
+            data:{token},
+            message:"user authenticated successfully",
+        })}
+    }catch (err) {
+        next(err)
+    }
+}
 
 
 
-export  {createUser,getAllUsers,getUserById,updateUser,deleteUser}
+
+export  {createUser,getAllUsers,getUserById,updateUser,deleteUser,authenticateUser}

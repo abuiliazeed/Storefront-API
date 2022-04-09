@@ -100,6 +100,31 @@ class UserModel {
 
 
     // authenticate a user
+    async authenticateUser(email: string, password: string): Promise<User|null> {
+        try{
+            //open connection with database
+            const connection = await dbclient.connect()
+            //select password using user email query
+            const getPasswordQuery = `SELECT password FROM users WHERE email = $1`
+            const result = await connection.query(getPasswordQuery, [email])
+            
+            //check if password is correct
+            if(bcrypt.compareSync(`${password}${process.env.BCRYPT_PASSWORD}`, result.rows[0].password)){
+                //return user
+                return result.rows[0]
+            }   else {
+                //return null
+                return null
+            }
+            //close connection
+            connection.release()
+    }
+    catch(err){
+        throw err
+
+}
+}
+        
 
 }
 

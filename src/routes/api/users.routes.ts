@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express"
-import {createUser,getAllUsers,getUserById,updateUser,deleteUser} from '../../controllers/user.controllers'
+import {createUser,getAllUsers,getUserById,updateUser,deleteUser,authenticateUser} from '../../controllers/user.controllers'
 
 
 
@@ -15,6 +15,9 @@ userRoutes.get("/:id",getUserById)
 userRoutes.put("/:id",updateUser)
 //delete user route
 userRoutes.delete("/:id",deleteUser)
+//authenticate user route
+userRoutes.post("/authenticate",authenticateUser)
+
 
 
 
