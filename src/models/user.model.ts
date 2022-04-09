@@ -1,5 +1,15 @@
 import User from "../types/user.type";
 import dbclient from "../db/db";
+import bcrypt from 'bcryptjs'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const hashPassword = (password:string) => {
+    const salt = (Number(process.env.SALT_ROUNDS))
+    return bcrypt.hashSync(`${password}${process.env.BCRYPT_PASSWORD}`, salt)
+}
+
 
 class UserModel {
     // create a new user
@@ -10,7 +20,7 @@ class UserModel {
             //run query to insert new user
             const createUserQuery = `INSERT INTO users(firstname,lastname, email, password) VALUES($1, $2, $3, $4)
             RETURNING id,firstname,lastname,email,password`;
-            const result = await connection.query(createUserQuery, [newUser.firstname, newUser.lastname, newUser.email, newUser.password]);
+            const result = await connection.query(createUserQuery, [newUser.firstname, newUser.lastname, newUser.email, hashPassword(newUser.password)]);
             //close connection
             connection.release();
             //return user
@@ -59,7 +69,7 @@ class UserModel {
             const connection = await dbclient.connect();
             //run query to update user
             const updateUserQuery = `UPDATE users SET firstname = $1, lastname = $2, email = $3, password = $4 WHERE id = $5 RETURNING id,firstname,lastname,email,password`;
-            const result = await connection.query(updateUserQuery, [user.firstname, user.lastname, user.email, user.password, id]);
+            const result = await connection.query(updateUserQuery, [user.firstname, user.lastname, user.email, hashPassword(user.password), id]);
             //close connection
             connection.release();
             //return user

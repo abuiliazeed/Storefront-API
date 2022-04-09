@@ -10,7 +10,9 @@ const {
     POSTGRES_TEST_DB,
     POSTGRES_PORT,
     POSTGRES_HOST,
-    ENV
+    ENV,
+    BYCRYPT_PASSWORD,
+    SALT_ROUNDS
 } = process.env
 
 
@@ -23,6 +25,7 @@ if (ENV === 'test'){
         database: POSTGRES_TEST_DB,
         password: POSTGRES_PASSWORD,
         port: Number(POSTGRES_PORT),
+        
     })
 }
 else {
