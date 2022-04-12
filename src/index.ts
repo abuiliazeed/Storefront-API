@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import * as dotenv from 'dotenv'
 import dbclient from './db/db'
 import routes from './routes/index'
+import errorMiddleWare from './middleware/error.middleware'
 
 
 dotenv.config()
@@ -31,7 +32,12 @@ app.get('/', (req: Request, res: Response) => {
   })
 })
 
-
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({
+    message: 'Not Found'
+  })
+})
+app.use(errorMiddleWare)
 // start express server
 app.listen(PORT, () => {
   console.log(`Server is starting at port:${PORT}`)

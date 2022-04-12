@@ -1,5 +1,7 @@
 import { Router, Request, Response } from "express"
 import {createUser,getAllUsers,getUserById,updateUser,deleteUser,authenticateUser} from '../../controllers/user.controllers'
+import authenticationMiddleware from '../../middleware/authenticate.middleware'
+
 
 
 
@@ -12,7 +14,7 @@ userRoutes.get("/",getAllUsers)
 //get user by id route
 userRoutes.get("/:id",getUserById)
 //update user route
-userRoutes.put("/:id",updateUser)
+userRoutes.put("/:id",authenticationMiddleware,updateUser)
 //delete user route
 userRoutes.delete("/:id",deleteUser)
 //authenticate user route
