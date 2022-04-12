@@ -1,30 +1,15 @@
-version: '3.9'
-
+version: '3.7'
 services:
-  storefrontdb:
-    image: postgres
-    ports:
-      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
-    env_file:
-      - .env
+  db:
+    image: abuiliazeed/postgresmultidb
     environment:
-    - POSTGRES_USER=${POSTGRES_USER}
-    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    - POSTGRES_DB=${POSTGRES_DB}
- 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_MULTIPLE_DATABASES: storedb,storedbtest
+    ports:
+      - "5432:5432"
     volumes:
-    - 'postgres:/var/lib/postgresql/data'
-
-  teststorefrontdb:
-    image: postgres
-    ports:
-      - '${POSTGRES_TEST_PORT}:${POSTGRES_TEST_PORT}'
-    env_file:
-      - .env
-    environment:
-    - POSTGRES_USER=${POSTGRES_USER}
-    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    - POSTGRES_DB=${POSTGRES_TEST_DB}
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
-  postgres:
+  pgdata:
