@@ -1,15 +1,16 @@
-version: '3.7'
+version: '3.9'
 services:
   db:
     image: abuiliazeed/postgresmultidb
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_MULTIPLE_DATABASES: storedb,storedbtest
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - 'pgdata:/var/lib/postgresql/data'
 
 volumes:
   pgdata:
