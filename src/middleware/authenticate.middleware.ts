@@ -19,6 +19,7 @@ const validateTokenMiddleware = async (req: Request, res: Response, next: NextFu
         console.log(authHeader)
 
         // check authHeader validate
+        if(authHeader){}
 
         // get value of token
 

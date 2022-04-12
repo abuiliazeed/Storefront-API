@@ -5,7 +5,6 @@ import dbclient from './db/db'
 import routes from './routes/index'
 import errorMiddleWare from './middleware/error.middleware'
 
-
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -14,11 +13,11 @@ const app: Application = express()
 // HTTP request logger middleware
 app.use(morgan('short'))
 
-dbclient.connect().then((client) =>{
-  client.query('SELECT NOW()',(err,res)=>{
+dbclient.connect().then((client) => {
+  client.query('SELECT NOW()', (err, res) => {
     console.log(`Environment: ${process.env.ENV} Database connected at:`)
     console.log(res.rows)
-    client.release() 
+    client.release()
   })
 })
 
