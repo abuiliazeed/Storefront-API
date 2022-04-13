@@ -4,7 +4,7 @@
   "description": "## Getting Started",
   "main": "index.js",
   "scripts": {
-    "test": "npx tsc && jasmine",
+    "test": "export ENV=test && db-migrate up --env test && npx tsc && jasmine &&db-migrate reset",
     "dev": "nodemon ./src/index.ts",
     "clean": "rimraf build/",
     "build": "yarn clean && npx tsc",
@@ -50,6 +50,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jasmine": "^3.99.0",
+    "jasmine-console-reporter": "^3.1.0",
     "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",

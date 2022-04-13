@@ -1,2 +1,2 @@
-/* Replace with your SQL commands */
+/* Deleting users data */
 DELETE FROM users;

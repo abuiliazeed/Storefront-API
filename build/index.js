@@ -29,20 +29,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var morgan_1 = __importDefault(require("morgan"));
 var dotenv = __importStar(require("dotenv"));
+var db_1 = __importDefault(require("./db/db"));
+var index_1 = __importDefault(require("./routes/index"));
+var error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
 dotenv.config();
 var PORT = process.env.PORT || 3000;
 // create an instance server
 var app = (0, express_1.default)();
 // HTTP request logger middleware
 app.use((0, morgan_1.default)('short'));
+db_1.default.connect().then(function (client) {
+    client.query('SELECT NOW()', function (err, res) {
+        console.log("Environment: ".concat(process.env.ENV, " Database connected at:"));
+        console.log(res.rows);
+        client.release();
+    });
+});
+app.use(express_1.default.json());
+app.use('/api', index_1.default);
 // add routing for / path
 app.get('/', function (req, res) {
     res.json({
-        message: 'Hello World 🌍'
+        message: 'server is running'
     });
 });
+app.use(function (_req, res) {
+    res.status(404).json({
+        message: 'Not Found'
+    });
+});
+app.use(error_middleware_1.default);
 // start express server
 app.listen(PORT, function () {
-    console.log("Server is starting at prot:".concat(PORT));
+    console.log("Server is starting at port:".concat(PORT));
 });
 exports.default = app;
