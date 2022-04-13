@@ -1,33 +1,17 @@
 # Storefront Backend Project
 
 ## Getting Started
-
-### Setting up the .env file
-Create .env file that contain all your environment variables
-```
-PORT=3000
-
-POSTGRES_HOST=localhost
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=storefrontdb
-POSTGRES_TEST_DB=storefrontdbtest
-POSTGRES_PORT=5432
-ENV=dev
-```
-### Setting up the database
-you need to create two databases the first one for development storefrontdb 
-```
-CREATE DATABASE storefrontdb
-```
-and create another one for testing
-```
-CREATE DATABASE storefrontdbtest
-```
-### Setting up the API Express server
 Clone this repo by running the following command
 ```
 git clone https://github.com/abuiliazeed/Storefront-API.git
+```
+go to the project directory by running the following command
+```
+cd Storefront-API
+```
+Spinning up the database docker container 
+```
+docker-compose up -d
 ```
 run the following command to install all the dependencies
 ```
