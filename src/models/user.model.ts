@@ -111,29 +111,58 @@ class UserModel {
   // authenticate a user
   async authenticateUser(email: string, password: string): Promise<User | null> {
     try {
-      //open connection with database
       const connection = await dbclient.connect()
-      //select password using user email query
-      const getPasswordQuery = `SELECT password FROM users WHERE email = $1`
-      const result = await connection.query(getPasswordQuery, [email])
-
-      //check if password is correct
-      if (
-        bcrypt.compareSync(`${password}${process.env.BCRYPT_PASSWORD}`, result.rows[0].password)
-      ) {
-        const userInfo = await connection.query('SELECT * FROM users WHERE email = $1', [email])
-        //return user
-        return userInfo.rows[0]
-      } else {
-        //return null
-        return null
+      const sql = 'SELECT password FROM users WHERE email=$1'
+      const result = await connection.query(sql, [email])
+      if (result.rows.length) {
+        const { password: hashPassword } = result.rows[0]
+        const isPasswordValid = bcrypt.compareSync(
+          `${password}${process.env.BCRYPT_PASSWORD}`,
+          hashPassword
+        )
+        if (isPasswordValid) {
+          const userInfo = await connection.query(
+            'SELECT id, firstname, lastname, email FROM users WHERE email=($1)',
+            [email]
+          )
+          return userInfo.rows[0]
+        }
       }
-      //close connection
       connection.release()
-    } catch (err) {
-      throw err
+      return null
+    } catch (error) {
+      throw new Error(`Unable to login: ${(error as Error).message}`)
     }
   }
+
+  // async authenticateUser(email: string, password: string): Promise<User | null> {
+  //   try {
+  //     //open connection with database
+  //     const connection = await dbclient.connect()
+  //     //select password using user email query
+  //     const getPasswordQuery = `SELECT password FROM users WHERE email = $1`
+  //     const result = await connection.query(getPasswordQuery, [email])
+
+  //     //check if password is correct
+  //     if (
+  //       bcrypt.compareSync(`${password}${process.env.BCRYPT_PASSWORD}`, result.rows[0].password)
+  //     ) {
+  //       const userInfo = await connection.query('SELECT * FROM users WHERE email = $1', [email])
+  //       //return user
+  //       return userInfo.rows[0]
+  //     } else {
+  //       connection.release()
+  //       console.log('Password is incorrect')
+  //       //return null
+  //       return null
+  //     }
+  //     //close connection
+  //     connection.release()
+  //   } catch (error) {
+  //     throw new Error(`Unable to login: ${(error as Error).message}`)
+  //   }
+  // }
+  //
 }
 
 export default UserModel
