@@ -121,8 +121,9 @@ class UserModel {
       if (
         bcrypt.compareSync(`${password}${process.env.BCRYPT_PASSWORD}`, result.rows[0].password)
       ) {
+        const userInfo = await connection.query('SELECT * FROM users WHERE email = $1', [email])
         //return user
-        return result.rows[0]
+        return userInfo.rows[0]
       } else {
         //return null
         return null

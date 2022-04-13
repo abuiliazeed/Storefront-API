@@ -11,3 +11,39 @@ describe('Authentication Module', () => {
     })
   })
 })
+
+describe('Test Authentication Logic', () => {
+  const user = {
+    firstname: 'John',
+    lastname: 'Doe',
+    email: 'johndoe@gmail.com',
+    password: 'password'
+  } as User
+
+  beforeAll(async () => {
+    const createdUser = await userModel.createUser(user)
+    user.id = createdUser.id
+  })
+
+  afterAll(async () => {
+    const connection = await dbclient.connect()
+    // alter sequence id to 1
+    await connection.query('ALTER SEQUENCE users_id_seq RESTART WITH 1')
+    await connection.query('DELETE FROM users;')
+    connection.release()
+  })
+
+  it('should authenticate a user', async () => {
+    const authenticatedUser = await userModel.authenticateUser(user.email, user.password)
+    expect(authenticatedUser?.email).toBe(user.email)
+    expect(authenticatedUser?.firstname).toBe(user.firstname)
+    expect(authenticatedUser?.lastname).toBe(user.lastname)
+    expect(authenticatedUser).toBeDefined()
+    expect(authenticatedUser).toEqual(user)
+  })
+
+  it('authenticate method should return null for wrong credintials', async () => {
+    const authenticatedUser = await userModel.authenticateUser('ahmed@mohamed.com', 'wrongpassword')
+    expect(authenticatedUser).toBeNull()
+  })
+})

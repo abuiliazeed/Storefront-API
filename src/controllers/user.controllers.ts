@@ -86,7 +86,7 @@ const authenticateUser = async (req: Request, res: Response, next: NextFunction)
     } else {
       res.json({
         status: 'success',
-        data: { token },
+        data: { ...user, token },
         message: 'user authenticated successfully'
       })
     }
