@@ -38,12 +38,13 @@ describe('Test Authentication Logic', () => {
     expect(authenticatedUser?.email).toBe(user.email)
     expect(authenticatedUser?.firstname).toBe(user.firstname)
     expect(authenticatedUser?.lastname).toBe(user.lastname)
-    expect(authenticatedUser).toBeDefined()
-    expect(authenticatedUser).toEqual(user)
   })
 
   it('authenticate method should return null for wrong credintials', async () => {
-    const authenticatedUser = await userModel.authenticateUser('ahmed@mohamed.com', 'wrongpassword')
-    expect(authenticatedUser).toBeNull()
+    const authenticatedUser = await userModel.authenticateUser(
+      'hamada@mohamed.com',
+      'wrongpassword'
+    )
+    expect(authenticatedUser).toBe(null)
   })
 })
