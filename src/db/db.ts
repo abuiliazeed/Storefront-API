@@ -25,8 +25,6 @@ if (ENV === 'test') {
     password: POSTGRES_PASSWORD,
     port: Number(POSTGRES_PORT)
   })
-  console.log(dbclient)
-
 } else {
   dbclient = new pg.Pool({
     user: POSTGRES_USER,
@@ -35,7 +33,6 @@ if (ENV === 'test') {
     password: POSTGRES_PASSWORD,
     port: Number(POSTGRES_PORT)
   })
-  console.log(dbclient)
 }
 
 dbclient.on('error', (error: Error) => {
