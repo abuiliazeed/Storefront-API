@@ -1,13 +1,12 @@
 {
   "name": "storefront-api",
   "version": "1.0.0",
-  "description": "## Getting Started",
+  "description": "StoreFront API",
   "main": "index.js",
   "scripts": {
     "test": "export ENV=test && db-migrate up --env test && npx tsc && jasmine &&db-migrate reset",
     "dev": "nodemon ./src/index.ts",
-    "clean": "rimraf build/",
-    "build": "yarn clean && npx tsc",
+    "build": "npx tsc",
     "start": "npm run build && node build/index.js",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx}'",
     "lint": "eslint . --ext .ts"
