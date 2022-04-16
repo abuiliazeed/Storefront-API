@@ -72,11 +72,6 @@ describe('User Model', () => {
             expect(user.password).toBe(user.password)
         }
         )
-        it('should delete a user', async () => {
-            const deletedUser = await userModel.deleteUser(user.id)
-            expect(deletedUser.id).toBe(user.id)
-        }
-        )
         it('should update a user', async () => {
             const updatedUser = await userModel.updateUser({
                 ...user,
@@ -88,6 +83,12 @@ describe('User Model', () => {
             expect(updatedUser.firstname).toBe('foo')
             expect(updatedUser.lastname).toBe('bar')
           })
+        it('should delete a user', async () => {
+            const deletedUser = await userModel.deleteUser(user.id)
+            expect(deletedUser.id).toBe(user.id)
+        }
+        )
+        
       
         
     })
