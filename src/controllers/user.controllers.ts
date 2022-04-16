@@ -48,10 +48,10 @@ const getUserById = async (req: Request, res: Response, next: NextFunction) => {
 // update a user
 const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await userModel.updateUser(Number(req.params.id), req.body)
+    const user = await userModel.updateUser(req.body)
     res.json({
       status: 'success',
-      data: { ...user },
+      data: user,
       message: 'user updated successfully'
     })
   } catch (err) {
@@ -65,7 +65,7 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     const user = await userModel.deleteUser(Number(req.params.id))
     res.json({
       status: 'success',
-      data: { ...user },
+      data: user,
       message: 'user deleted successfully'
     })
   } catch (err) {

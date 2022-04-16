@@ -19,7 +19,7 @@ class UserModel {
       const connection = await dbclient.connect()
       //run query to insert new user
       const createUserQuery = `INSERT INTO users(firstname,lastname, email, password) VALUES($1, $2, $3, $4)
-            RETURNING id,firstname,lastname,email,password`
+            RETURNING id,firstname,lastname,email`
       const result = await connection.query(createUserQuery, [
         newUser.firstname,
         newUser.lastname,
@@ -40,7 +40,7 @@ class UserModel {
       //open connection with database
       const connection = await dbclient.connect()
       //run query to get all users
-      const getAllUsersQuery = `SELECT * FROM users`
+      const getAllUsersQuery = `SELECT id, firstname, lastname, email FROM users`
       const result = await connection.query(getAllUsersQuery)
       //close connection
       connection.release()
@@ -69,27 +69,30 @@ class UserModel {
   }
 
   // update a user
-  async updateUser(id: number, user: User): Promise<User> {
+  async updateUser(u: User): Promise<User> {
     try {
-      //open connection with database
       const connection = await dbclient.connect()
-      //run query to update user
-      const updateUserQuery = `UPDATE users SET firstname = $1, lastname = $2, email = $3, password = $4 WHERE id = $5 RETURNING id,firstname,lastname,email,password`
-      const result = await connection.query(updateUserQuery, [
-        user.firstname,
-        user.lastname,
-        user.email,
-        hashPassword(user.password),
-        id
+      const query = `UPDATE users 
+                  SET email=$1, firstname=$2, lastname=$3, password=$4 
+                  WHERE id=$5 
+                  RETURNING id, email, firstname, lastname`
+      
+      const result = await connection.query(query, [
+        u.email,
+        u.firstname,
+        u.lastname,
+        hashPassword(u.password as string),
+        u.id
       ])
-      //close connection
       connection.release()
-      //return user
       return result.rows[0]
-    } catch (err) {
-      throw err
+    } catch (error) {
+      throw new Error(
+        `Could not update user: ${u.email}, ${(error as Error).message}`
+      )
     }
   }
+
 
   // delete a user
   async deleteUser(id: number): Promise<User> {

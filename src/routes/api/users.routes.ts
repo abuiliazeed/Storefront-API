@@ -17,7 +17,7 @@ userRoutes.get('/', getAllUsers)
 //get user by id route
 userRoutes.get('/:id', getUserById)
 //update user route
-userRoutes.put('/:id', authenticationMiddleware, updateUser)
+userRoutes.put('/:id',authenticationMiddleware, updateUser)
 //delete user route
 userRoutes.delete('/:id', deleteUser)
 //authenticate user route
