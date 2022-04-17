@@ -12,6 +12,8 @@ class ProductModel {
       const createProductQuery = `INSERT INTO products(name, price) VALUES($1, $2)
                   RETURNING id,name,price`
       const result = await connection.query(createProductQuery, [newProduct.name, newProduct.price])
+      console.log(newProduct)
+      console.log(result.rows)
       //close connection
       connection.release()
       //return product
@@ -53,7 +55,7 @@ class ProductModel {
     }
   }
   // update a product
-  async updateProduct(id: number, newProduct: Product): Promise<Product> {
+  async updateProduct(newProduct: Product): Promise<Product> {
     try {
       //open connection with database
       const connection = await dbclient.connect()
@@ -62,7 +64,7 @@ class ProductModel {
       const result = await connection.query(updateProductQuery, [
         newProduct.name,
         newProduct.price,
-        id
+        newProduct.id
       ])
       //close connection
       connection.release()
