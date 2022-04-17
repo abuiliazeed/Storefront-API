@@ -26,7 +26,7 @@ describe('Product Model', () => {
   describe('Test product model logic', () => {
     const product = {
       name: 'Tshirt',
-      price: 100.50
+      price: 100
     } as Product
     beforeAll(async () => {
       const createdProduct = await productModel.createProduct(product)
@@ -43,12 +43,12 @@ describe('Product Model', () => {
     it('Create method should return a New Product', async () => {
       const createdProduct = await productModel.createProduct({
         name: 'Pants',
-        price: 200.50
+        price: 200.5
       } as Product)
       expect(createdProduct).toEqual({
         id: createdProduct.id,
         name: 'Pants',
-        price: 200.50
+        price: 200.5
       } as Product)
     })
 
@@ -69,11 +69,11 @@ describe('Product Model', () => {
       const updatedProduct = await productModel.updateProduct({
         ...product,
         name: 'Tshirt',
-        price: 300.50
+        price: 300.5
       })
       expect(updatedProduct.id).toBe(product.id)
       expect(updatedProduct.name).toBe('Tshirt')
-      expect(updatedProduct.price).toBe(300.50)
+      expect(updatedProduct.price).toBe(300.5)
     })
 
     // Testing delete a product method

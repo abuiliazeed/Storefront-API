@@ -12,8 +12,6 @@ class ProductModel {
       const createProductQuery = `INSERT INTO products(name, price) VALUES($1, $2)
                   RETURNING id,name,price`
       const result = await connection.query(createProductQuery, [newProduct.name, newProduct.price])
-      console.log(newProduct)
-      console.log(result.rows)
       //close connection
       connection.release()
       //return product

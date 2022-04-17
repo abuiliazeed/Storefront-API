@@ -4,7 +4,7 @@
   "description": "StoreFront API",
   "main": "index.js",
   "scripts": {
-    "test": "export ENV=test && db-migrate up --env test && npx tsc && jasmine &&db-migrate reset",
+    "test": "export ENV=test && db-migrate down && db-migrate up --env test && npx tsc && jasmine &&db-migrate reset",
     "dev": "nodemon ./src/index.ts",
     "build": "npx tsc",
     "start": "db-migrate up && npm run build && node build/index.js",
