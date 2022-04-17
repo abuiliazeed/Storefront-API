@@ -76,7 +76,7 @@ class UserModel {
                   SET email=$1, firstname=$2, lastname=$3, password=$4 
                   WHERE id=$5 
                   RETURNING id, email, firstname, lastname`
-      
+
       const result = await connection.query(query, [
         u.email,
         u.firstname,
@@ -87,12 +87,9 @@ class UserModel {
       connection.release()
       return result.rows[0]
     } catch (error) {
-      throw new Error(
-        `Could not update user: ${u.email}, ${(error as Error).message}`
-      )
+      throw new Error(`Could not update user: ${u.email}, ${(error as Error).message}`)
     }
   }
-
 
   // delete a user
   async deleteUser(id: number): Promise<User> {
