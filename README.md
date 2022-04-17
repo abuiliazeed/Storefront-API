@@ -17,7 +17,7 @@ run the following command to install all the dependencies
 ```
 npm install
 ```
-run the following command to start the Testing
+run the following command to start the Testing for the API endpoints
 ```
 npm run test
 ```
