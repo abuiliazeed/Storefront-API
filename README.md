@@ -17,6 +17,10 @@ run the following command to install all the dependencies
 ```
 npm install
 ```
+run the following command to start the Testing
+```
+npm run test
+```
 run the following command to start the server
 ```
 npm start
