@@ -13,13 +13,13 @@ const userRoutes = Router()
 //create user route
 userRoutes.post('/', createUser)
 //get all users route
-userRoutes.get('/', getAllUsers)
+userRoutes.get('/', authenticationMiddleware, getAllUsers)
 //get user by id route
-userRoutes.get('/:id', getUserById)
+userRoutes.get('/:id', authenticationMiddleware, getUserById)
 //update user route
-userRoutes.put('/:id',authenticationMiddleware, updateUser)
+userRoutes.put('/:id', authenticationMiddleware, updateUser)
 //delete user route
-userRoutes.delete('/:id', deleteUser)
+userRoutes.delete('/:id', authenticationMiddleware, deleteUser)
 //authenticate user route
 userRoutes.post('/authenticate', authenticateUser)
 
